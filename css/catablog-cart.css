@@ -1,0 +1,40 @@
+.catablog-cart-table
+{
+    border: 1px solid #c3c3c3;
+    width: 90%;
+}
+
+
+.catablog-cart-table thead
+{
+    background-color: #c3c3c3;
+}
+
+
+.catablog-checkout-row
+{
+    clear: both;
+    display: block;
+    line-height: 2em;
+}
+
+.catablog-checkout-row label 
+{
+    float: left;
+    display: block;
+    width: 100px;
+    padding-right: 15px;
+}
+
+.catablog-checkout-row textarea 
+{
+    width: 80%;
+    height: 150px;
+}
+
+.catablog-checkout-row input 
+{
+    margin-bottom: 0;
+}
+
+
