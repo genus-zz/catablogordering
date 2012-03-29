@@ -17,11 +17,19 @@ This is a work in progress so feel free to contact me and ask me for updates.
 2) Activate the plugin and a new option will come up for settings.
 
 3) Modify the Catablog STORE template form, and get ride of the action 
-   attribute of the form tag if any. ex: 
-   <form method='post'>
+   attribute of the form tag and add a input:  
+	<form method='post' >
+	  <input type='hidden' name='cmd' value='_cart'> <!-- This tell plugin to add to cart -->
+	  <input type='hidden' name='item_name' value='%TITLE-TEXT%'>
+	  <input type='hidden' name='item_number' value='%PRODUCT-CODE%'>
+	  <input type='hidden' name='amount' value='%PRICE%'>
+	  <input type='hidden' name='quantity' value='1'>
+	  <input type='hidden' name='add' value='1'>
+	  <input type='submit' value='ADD TO CART'>
+	</form>
 
-4) If you want additional data to be sent on the e-mail all form's 
-   field must begin with "item_" prefix ex: 
+4) If you want additional data to be sent on the e-mail 
+   add form's fields with "item_" prefix ex: 
    <input type="text" name="item_weight" />
 
 == 0.1 == 
