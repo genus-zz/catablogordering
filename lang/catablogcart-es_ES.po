@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Catablog Cart\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-11-16 12:25-0300\n"
+"PO-Revision-Date: 2011-11-16 12:29-0300\n"
+"Last-Translator: diego2k <diego2k@gmail.com>\n"
+"Language-Team: Estudio Genus <info@estudiogenus.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: Spanish\n"
+"X-Poedit-SearchPath-0: /var/www/multispinus/wp-content/plugins/catablog/cart\n"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:127
+msgid "Cart is empty"
+msgstr "No hay elementos en el pedido"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:137
+msgid "Your order was sent, you will receive an email notifying you that your order has been sent."
+msgstr "Su pedido ha sido enviado, recibira un email de notificacion."
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:141
+msgid "Unable to precess your order, please report this issue using contact form"
+msgstr "Imposible procesar su pedido, por favor reintente."
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:157
+msgid "Code"
+msgstr "Codigo"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:158
+msgid "Description"
+msgstr "Descripcion"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:159
+msgid "Qty"
+msgstr "Cant."
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:160
+msgid "Price"
+msgstr "Precio"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:186
+msgid "Empty Cart"
+msgstr "Vacio"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:188
+msgid "Order Now"
+msgstr "Pedir"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:193
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:198
+msgid "Name"
+msgstr "Nombre y Apellido"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:203
+msgid "Phone"
+msgstr "Telefono"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:208
+msgid "Address"
+msgstr "Domicilio"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:213
+msgid "Note"
+msgstr "Mensaje"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:220
+msgid "CONFIRM"
+msgstr "CONFIRMA"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:255
+msgid "ORDER"
+msgstr "Pedido"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:308
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:309
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:333
+msgid "Catablog Cart Options"
+msgstr ""
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:339
+msgid "Cart Page ID"
+msgstr "Pagina del Carrito"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:342
+msgid "Create a page with the <strong>[catablogcart]</strong> short code"
+msgstr "Debe crear una pagina con el codigo [catablogcart]"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:347
+msgid "Order E-mail From"
+msgstr "Remitente del E-Mail:"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:352
+msgid "Order E-mail Subject"
+msgstr "Asunto del E-mail"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:357
+msgid "Order E-Mail Template"
+msgstr "Plantilla del E-mail"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:360
+msgid "Special variables %ORDER%, %EMAIL%, %NAME%, %PHONE%, %ADDRESS%, %NOTE%"
+msgstr "Palabras claves %ORDER%, %EMAIL%, %NAME%, %PHONE%, %ADDRESS%, %NOTE%"
+
+#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:367
+msgid "Save Changes"
+msgstr ""
+
