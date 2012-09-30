@@ -3,7 +3,7 @@
 Plugin Name: Catablog Ordering
 Plugin URI: https://github.com/genus/catablogordering
 Description: Add Catablog Plugin Support for Making Purchase Orders
-Version: 0.1
+Version: 0.1.2
 Author: diego2k
 Author URI: http://www.estudiogenus.com/
 

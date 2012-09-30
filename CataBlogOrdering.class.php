@@ -12,7 +12,12 @@ class CataBlogCart
     public static function processEvent()
     {
 
-	    $catablog_item_page = strpos($_SERVER['REQUEST_URI'], 'catablog-items') !== false;
+		$cb_options = get_option('catablog-options',array());
+	
+		if ( !count($cb_options) && !isset($cb_options['public_post_slug']) ) return false;
+			
+		$catablog_item_page = strpos($_SERVER['REQUEST_URI'], $cb_options['public_post_slug']) !== false;
+			      	    
 
 	    if ( $catablog_item_page && isset( $_REQUEST['cmd'] ) )
 	    {

@@ -51,6 +51,9 @@ You can find me on facebook/diego2k
 = This is cool how can i help? =
 Make donation, make translations, improve it, spread the word!
 
+== 0.1.2 ==
+Fixed Problem with catablog slug
+
 == 0.1.1 ==
 Improved Documentation
 
