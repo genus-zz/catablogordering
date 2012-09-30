@@ -19,7 +19,7 @@ class CataBlogCart
 		$catablog_item_page = strpos($_SERVER['REQUEST_URI'], $cb_options['public_post_slug']) !== false;
 			      	    
 
-	    if ( $catablog_item_page && isset( $_REQUEST['cmd'] ) )
+	    if ( ($catablog_item_page && isset( $_REQUEST['cmd'] )) || isset($_REQUEST['catablogcartprocess']) )
 	    {
 		    $post_vars = array_map('stripslashes_deep', $_REQUEST);
 		    $post_vars = array_map('trim', $post_vars);
