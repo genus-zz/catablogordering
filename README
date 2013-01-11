@@ -51,6 +51,11 @@ You can find me on facebook/diego2k
 = This is cool how can i help? =
 Make donation, make translations, improve it, spread the word!
 
+== 0.1.3 ==
+Fixed problem with translation
+Fixed bug that only emails one item from cart
+Added support for custom order template
+
 == 0.1.2 ==
 Small bugfix to support catablog slug change 
 

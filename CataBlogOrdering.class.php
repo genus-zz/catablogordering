@@ -13,41 +13,43 @@ class CataBlogCart
     {
 
 		$cb_options = get_option('catablog-options',array());
-		
+	
 		if ( !count($cb_options) && !isset($cb_options['public_post_slug']) ) return false;
-				
-		$catablog_item_page = strpos($_SERVER['REQUEST_URI'], $cb_options['public_post_slug']) !== false;
+			
+		$catablog_item_page = strpos($_SERVER['REQUEST_URI'], $cb_options['public_post_slug']) !== false ||
+							  strpos($_SERVER['REQUEST_URI'], 'catablog-items') !== false ;
+			      	    
 
-	    if ( $catablog_item_page && isset( $_REQUEST['cmd'] ) )
+	    if ( ($catablog_item_page && isset( $_REQUEST['cmd'] )) || isset($_REQUEST['catablogcartprocess']) )
 	    {
 		    $post_vars = array_map('stripslashes_deep', $_REQUEST);
 		    $post_vars = array_map('trim', $post_vars);
 			
-			$redirect_id = '?page_id='.get_option('catablogcart_pageid',0);
-		
+			$redirect_id = home_url() . '?page_id='.get_option('catablogcart_pageid',0);
+			
 		    switch( $post_vars['cmd'] )
 		    {
 		        case '_cart':
 		            CataBlogCart::addToCart($post_vars);
-		            header('Location: index.php'.$redirect_id,true);
+		            wp_redirect($redirect_id);
 		            exit();
                     break;
                     
                 case '_empty':
                     CataBlogCart::emptyCart();
-		            header('Location: index.php'.$redirect_id,true);
+		            wp_redirect($redirect_id);
 		            exit();
 		            break;
 		            
 		        case '_remove':
 		            CataBlogCart::removeFromCart($post_vars);
-		            header('Location: index.php'.$redirect_id,true);
+		            wp_redirect($redirect_id);
 		            exit();
 		            break;		            
 
 		        case '_checkout':
 		            CataBlogCart::checkOut($post_vars);
-		            header('Location: index.php'.$redirect_id,true);
+		            wp_redirect($redirect_id);
 		            exit();
 		            break;
 
@@ -82,9 +84,10 @@ class CataBlogCart
             }
         }
 
-        // Add Amount and Qty
+        // Add Amount Qty and calculates Total
         $item_info['amount']   = $post_vars['amount'];
         $item_info['quantity'] = $post_vars['quantity'];
+		$item_info['total']    = ($post_vars['amount'] * $post_vars['quantity']);
         
         $_SESSION['cart']['items'][] = $item_info;
 
@@ -125,7 +128,7 @@ class CataBlogCart
         
         if ($empty) 
         {        
-            echo __('Cart is empty','catablogcart');
+            _e('Cart is empty','catablogcart');
             return true;
         }
         else
@@ -159,6 +162,7 @@ class CataBlogCart
                             <td><?php _e('Description','catablogcart') ?></td>
                             <td><?php _e('Qty','catablogcart') ?></td>
                             <td><?php _e('Price','catablogcart') ?></td>
+							<td><?php _e('Total','catablogcart') ?></td>
                             <td>&nbsp;</td>
                         </tr>
                     </thead>
@@ -170,25 +174,26 @@ class CataBlogCart
                             <td><?php echo $item['item_name'];   ?></td>
                             <td><?php echo $item['quantity'];    ?></td>
                             <td align="right"><?php echo $item['amount']; ?></td>
-                            <td><a class="catablog-cart-action" href="index.php?catablog-items&cmd=_remove&item_order=<?php echo $order; ?>">x</a></td>
+							<td align="right"><?php echo $item['total'];    ?></td>
+                            <td><a class="catablog-cart-action" href="?catablog-items&cmd=_remove&item_order=<?php echo $order; ?>">x</a></td>
                         </tr>
-                        <?php $total = $total + $item['amount']; } ?>
+                        <?php $total = $total + $item['total']; } ?>
                     </tbody>
                     
                     <tfoot>
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="4"></td>
                             <td class="catablog-cart-tabletotal" align="right"><?php printf('%0.2f',$total); ?></td>
                             <td>&nbsp;</td>
                         </tr>
                     </tfoot>                    
                 </table>               
                
-                <a class="catablog-cart-action" href="index.php?catablog-items&cmd=_empty"><?php _e('Empty Cart','catablogcart'); ?></a>
+				<a class="catablog-cart-action" href="?catablog-items&cmd=_empty"><?php _e('Warenkorb leeren.','catablogcart'); ?></a>
                 
                 <h2><?php _e('Order Now','catablogcart'); ?></h2>
                 
-                <form method="POST" action="index.php?catablog-items&cmd=_checkout" class="catablog-cart-form" >
+                <form method="POST" action="?catablog-items" class="catablog-cart-form" >
 
                     <span class="catablog-checkout-row">
                         <label for="email"><?php _e('E-Mail','catablogcart'); ?></label>
@@ -217,9 +222,10 @@ class CataBlogCart
                     
                     <span class="catablog-checkout-row">
                         <center>
+                            <input type="hidden" name="cmd" value="_checkout" />
                             <input type="hidden" name="formseed" value="<?php echo $_SESSION['cart']['seed']; ?>" />
                             <input type="submit" name="submit" value="<?php _e('CONFIRM','catablogcart'); ?>" />
-                        <center>
+                        </center>
                     </span>
                 
                 </form>
@@ -239,8 +245,9 @@ class CataBlogCart
     public static function checkOut($post_vars)
     {
     
-        session_start();  
-              
+        @session_start();
+
+
         if ( !isset($_SESSION['cart']) ) 
             return false;        
         else
@@ -258,21 +265,27 @@ class CataBlogCart
         $from    = get_option('catablogcart_emailfrom',    $standard_from);
         $subject = get_option('catablogcart_emailsubject', $standard_subject);
         
-		$order   = "";
-        foreach($_SESSION['cart']['items'] as $order => $item) 
-        {
-            $order .= implode($item,"\t\t") . "\n";
-        }       
-        $dir = WP_CONTENT_DIR . "/plugins/catablog/templates/cart";
-        
+		$cart    = $_SESSION['cart']['items']; 
+		
+		// Introducing ArrayToTextTable to render text table
+		
+		$order = new ArrayToTextTable($cart);
+		$order->showHeaders(true);
+		$order = $order->render(true);
+
         $headers = "From: $from"                             . PHP_EOL .
                    "To: $to"                                 . PHP_EOL .
                    "BCC: $from"                              . PHP_EOL .
                    "MIME-Version 1.0"                        . PHP_EOL .
                    "Content-type: text/plain; charset=utf-8" . PHP_EOL .
                    "X-Mailer: PHP-" . phpversion()           . PHP_EOL ;
-        
-        $message = get_option('catablogcart_emailtemplate', $standard_order);
+				   
+		$template = WP_CONTENT_DIR . "/plugins/catablog/templates/views/order.htm";
+		
+		if( is_file($template) )
+			$message = file_get_contents($template);
+		else
+			$message = get_option('catablogcart_emailtemplate', $standard_order);
                
         $message = str_replace('%EMAIL%',   $post_vars['email'],     $message );
         $message = str_replace('%NAME%',    $post_vars['firstlast'], $message );
@@ -280,11 +293,11 @@ class CataBlogCart
         $message = str_replace('%ADDRESS%', $post_vars['address'],   $message );
         $message = str_replace('%NOTE%',    $post_vars['note'],      $message );
         $message = str_replace('%ORDER%',   $order,                  $message );
-        
+                
         $ok = wp_mail( $to, $subject, $message, $headers );
 
 		$_SESSION['cart']['submit'] = $ok;
-		
+        	
 		return $ok;
         
     }
