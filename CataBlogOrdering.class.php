@@ -13,13 +13,12 @@ class CataBlogCart
     {
 
 		$cb_options = get_option('catablog-options',array());
-	
+		
 		if ( !count($cb_options) && !isset($cb_options['public_post_slug']) ) return false;
-			
+				
 		$catablog_item_page = strpos($_SERVER['REQUEST_URI'], $cb_options['public_post_slug']) !== false;
-			      	    
 
-	    if ( ($catablog_item_page && isset( $_REQUEST['cmd'] )) || isset($_REQUEST['catablogcartprocess']) )
+	    if ( $catablog_item_page && isset( $_REQUEST['cmd'] ) )
 	    {
 		    $post_vars = array_map('stripslashes_deep', $_REQUEST);
 		    $post_vars = array_map('trim', $post_vars);
