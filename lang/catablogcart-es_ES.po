@@ -1,115 +1,170 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Catablog Cart\n"
+"Project-Id-Version: Catablog Ordering v0.1.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-16 12:25-0300\n"
-"PO-Revision-Date: 2011-11-16 12:29-0300\n"
+"PO-Revision-Date: 2013-02-19 20:08:17+0000\n"
 "Last-Translator: diego2k <diego2k@gmail.com>\n"
 "Language-Team: Estudio Genus <info@estudiogenus.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
-"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
 "X-Poedit-Language: Spanish\n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Bookmarks: \n"
 "X-Poedit-SearchPath-0: /var/www/multispinus/wp-content/plugins/catablog/cart\n"
+"X-Textdomain-Support: yes"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:127
+#: CataBlogOrdering.class.php:139
+#@ catablogcart
 msgid "Cart is empty"
 msgstr "No hay elementos en el pedido"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:137
+#: CataBlogOrdering.class.php:149
+#@ catablogcart
 msgid "Your order was sent, you will receive an email notifying you that your order has been sent."
 msgstr "Su pedido ha sido enviado, recibira un email de notificacion."
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:141
+#: CataBlogOrdering.class.php:153
+#@ catablogcart
 msgid "Unable to precess your order, please report this issue using contact form"
 msgstr "Imposible procesar su pedido, por favor reintente."
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:157
+#: CataBlogOrdering.class.php:169
+#@ catablogcart
 msgid "Code"
 msgstr "Codigo"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:158
+#: CataBlogOrdering.class.php:170
+#@ catablogcart
 msgid "Description"
 msgstr "Descripcion"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:159
+#: CataBlogOrdering.class.php:171
+#@ catablogcart
 msgid "Qty"
 msgstr "Cant."
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:160
+#: CataBlogOrdering.class.php:173
+#@ catablogcart
 msgid "Price"
 msgstr "Precio"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:186
-msgid "Empty Cart"
-msgstr "Vacio"
-
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:188
+#: CataBlogOrdering.class.php:210
+#@ catablogcart
 msgid "Order Now"
 msgstr "Pedir"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:193
+#: CataBlogOrdering.class.php:215
+#@ catablogcart
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:198
+#: CataBlogOrdering.class.php:220
+#@ catablogcart
 msgid "Name"
 msgstr "Nombre y Apellido"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:203
+#: CataBlogOrdering.class.php:225
+#@ catablogcart
 msgid "Phone"
 msgstr "Telefono"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:208
+#: CataBlogOrdering.class.php:230
+#@ catablogcart
 msgid "Address"
 msgstr "Domicilio"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:213
+#: CataBlogOrdering.class.php:235
+#@ catablogcart
 msgid "Note"
 msgstr "Mensaje"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:220
+#: CataBlogOrdering.class.php:243
+#@ catablogcart
 msgid "CONFIRM"
 msgstr "CONFIRMA"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:255
+#: CataBlogOrdering.class.php:277
+#@ catablogcart
 msgid "ORDER"
 msgstr "Pedido"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:308
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:309
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:333
+#: CataBlogOrdering.class.php:385
+#: CataBlogOrdering.class.php:386
+#: CataBlogOrdering.class.php:411
+#@ catablogcart
 msgid "Catablog Cart Options"
 msgstr ""
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:339
+#: CataBlogOrdering.class.php:417
+#@ catablogcart
 msgid "Cart Page ID"
 msgstr "Pagina del Carrito"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:342
+#: CataBlogOrdering.class.php:420
+#@ catablogcart
 msgid "Create a page with the <strong>[catablogcart]</strong> short code"
 msgstr "Debe crear una pagina con el codigo [catablogcart]"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:347
+#: CataBlogOrdering.class.php:425
+#@ catablogcart
 msgid "Order E-mail From"
 msgstr "Remitente del E-Mail:"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:352
+#: CataBlogOrdering.class.php:430
+#@ catablogcart
 msgid "Order E-mail Subject"
 msgstr "Asunto del E-mail"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:357
+#: CataBlogOrdering.class.php:435
+#@ catablogcart
 msgid "Order E-Mail Template"
 msgstr "Plantilla del E-mail"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:360
+#: CataBlogOrdering.class.php:438
+#, php-format
+#@ catablogcart
 msgid "Special variables %ORDER%, %EMAIL%, %NAME%, %PHONE%, %ADDRESS%, %NOTE%"
 msgstr "Palabras claves %ORDER%, %EMAIL%, %NAME%, %PHONE%, %ADDRESS%, %NOTE%"
 
-#: /var/www/multispinus/wp-content/plugins/catablog/cart/CataBlogCart.class.php:367
+#: CataBlogOrdering.class.php:474
+#@ default
 msgid "Save Changes"
 msgstr ""
+
+#: CataBlogOrdering.class.php:174
+#@ catablogcart
+msgid "Total"
+msgstr ""
+
+#: CataBlogOrdering.class.php:208
+#@ catablogcart
+msgid "Empty Cart"
+msgstr "Vaciar Carrito"
+
+#: CataBlogOrdering.class.php:443
+#@ catablogcart
+msgid "Send HTML E-mail"
+msgstr "Enviar E-mail HTML"
+
+#: CataBlogOrdering.class.php:446
+#@ catablogcart
+msgid "If checked the email will be sent as HTML, otherwise it will be plain text"
+msgstr "Al marcar esta opción se enviarán e-mails en formato HTML. Caso contrario se vera en texto plano."
+
+#: CataBlogOrdering.class.php:451
+#@ catablogcart
+msgid "Hide Prices"
+msgstr "Ocultar Precios"
+
+#: CataBlogOrdering.class.php:454
+#@ catablogcart
+msgid "Enable this option to hide prices and totals"
+msgstr "Active esta opción si desea ocultar precios y totales"
 

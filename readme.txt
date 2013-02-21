@@ -1,9 +1,9 @@
 === Catablog Ordering - Add Catablog Support for Making Purchase Orders ===
 Contributors: diego2k
 Tags: plugin, admin, product, sales, orders, purchase, store, cart, ecommerce, Spanish
-Requires at least: catablog plugin in order to work
-Tested up to: wordpress: 3
-Stable tag: trunk
+Requires at least: 3.5
+Tested up to: 3.5
+Stable tag: 0.1.4
 
 == Description ==
 
@@ -50,6 +50,12 @@ You can find me on facebook/diego2k
 
 = This is cool how can i help? =
 Make donation, make translations, improve it, spread the word!
+
+== 0.1.4 ==
+Added Option to Hide Prices and Totals
+Added Option to send HTML e-mails
+Fixed template location to be same as catablog's upload folder
+Removed item_ prefix on e-mail table titles
 
 == 0.1.3 ==
 Fixed problem with translation

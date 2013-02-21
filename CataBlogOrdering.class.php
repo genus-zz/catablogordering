@@ -13,9 +13,9 @@ class CataBlogCart
     {
 
 		$cb_options = get_option('catablog-options',array());
-	
+
 		if ( !count($cb_options) && !isset($cb_options['public_post_slug']) ) return false;
-			
+
 		$catablog_item_page = strpos($_SERVER['REQUEST_URI'], $cb_options['public_post_slug']) !== false ||
 							  strpos($_SERVER['REQUEST_URI'], 'catablog-items') !== false ;
 			      	    
@@ -84,10 +84,17 @@ class CataBlogCart
             }
         }
 
-        // Add Amount Qty and calculates Total
-        $item_info['amount']   = $post_vars['amount'];
-        $item_info['quantity'] = $post_vars['quantity'];
-		$item_info['total']    = ($post_vars['amount'] * $post_vars['quantity']);
+		$item_info['quantity'] = $post_vars['quantity'];
+		
+		// Checks Whenever or not add Prices
+		$hidePrices  = (get_option('catablogcart_hideprices', '') != '');
+		
+        if(!$hidePrices)
+        {
+            // Add Amount Qty and calculates Total
+	        $item_info['amount']   = $post_vars['amount'];    
+			$item_info['total']    = ($post_vars['amount'] * $post_vars['quantity']);
+        }
         
         $_SESSION['cart']['items'][] = $item_info;
 
@@ -118,6 +125,8 @@ class CataBlogCart
     {
 		@session_start();
 
+		$hidePrices  = (get_option('catablogcart_hideprices', '') != '');
+		
         $sent = false;
         $message = '';
         if ( !isset($_SESSION['cart']) ) 
@@ -161,8 +170,10 @@ class CataBlogCart
                             <td><?php _e('Code','catablogcart') ?></td>
                             <td><?php _e('Description','catablogcart') ?></td>
                             <td><?php _e('Qty','catablogcart') ?></td>
+                            <?php if(!$hidePrices) { ?>
                             <td><?php _e('Price','catablogcart') ?></td>
 							<td><?php _e('Total','catablogcart') ?></td>
+							<?php } ?>
                             <td>&nbsp;</td>
                         </tr>
                     </thead>
@@ -173,23 +184,27 @@ class CataBlogCart
                             <td><?php echo $item['item_number']; ?></td>
                             <td><?php echo $item['item_name'];   ?></td>
                             <td><?php echo $item['quantity'];    ?></td>
+                            <?php if(!$hidePrices) { ?>
                             <td align="right"><?php echo $item['amount']; ?></td>
 							<td align="right"><?php echo $item['total'];    ?></td>
+							<?php } ?>
                             <td><a class="catablog-cart-action" href="?catablog-items&cmd=_remove&item_order=<?php echo $order; ?>">x</a></td>
                         </tr>
                         <?php $total = $total + $item['total']; } ?>
                     </tbody>
                     
+                    <?php if(!$hidePrices) { ?>
                     <tfoot>
                         <tr>
                             <td colspan="4"></td>
                             <td class="catablog-cart-tabletotal" align="right"><?php printf('%0.2f',$total); ?></td>
                             <td>&nbsp;</td>
                         </tr>
-                    </tfoot>                    
+                    </tfoot>
+					<?php } ?>
                 </table>               
                
-				<a class="catablog-cart-action" href="?catablog-items&cmd=_empty"><?php _e('Warenkorb leeren.','catablogcart'); ?></a>
+				<a class="catablog-cart-action" href="?catablog-items&cmd=_empty"><?php _e('Empty Cart','catablogcart'); ?></a>
                 
                 <h2><?php _e('Order Now','catablogcart'); ?></h2>
                 
@@ -256,7 +271,7 @@ class CataBlogCart
         
         if( $_SESSION['cart']['seed'] != $post_vars['formseed'] )
             return false;
-                
+
 		$standard_subject = __('ORDER','catablogcart') . ' ' . get_option('blogname');
 		$standard_from    = get_option('admin_email');
 		$standard_order   = '%EMAIL% %NAME% %PHONE% %ADDRESS% %NOTE% %ORDER%';
@@ -265,22 +280,69 @@ class CataBlogCart
         $from    = get_option('catablogcart_emailfrom',    $standard_from);
         $subject = get_option('catablogcart_emailsubject', $standard_subject);
         
+        $isHtml  = (get_option('catablogcart_emailhtml', '') != '') ? 'html' : 'plain';
+        		
 		$cart    = $_SESSION['cart']['items']; 
-		
-		// Introducing ArrayToTextTable to render text table
-		
-		$order = new ArrayToTextTable($cart);
-		$order->showHeaders(true);
-		$order = $order->render(true);
 
-        $headers = "From: $from"                             . PHP_EOL .
-                   "To: $to"                                 . PHP_EOL .
-                   "BCC: $from"                              . PHP_EOL .
-                   "MIME-Version 1.0"                        . PHP_EOL .
-                   "Content-type: text/plain; charset=utf-8" . PHP_EOL .
-                   "X-Mailer: PHP-" . phpversion()           . PHP_EOL ;
-				   
-		$template = WP_CONTENT_DIR . "/plugins/catablog/templates/views/order.htm";
+		$oder = '';	
+
+		if($isHtml)
+		{
+			// Introducing HTML email send
+
+			$order .= '<table width="100%" border="1">';
+
+			foreach($cart as $key => $item)
+			{
+				// Make Titles
+				if($key == 0) 
+				{
+					$order .= '<tr>';
+					foreach( array_keys($item) as $title )
+						$order .= '<th>'.str_replace('item_','',$title).'</th>';
+					$order .= '</tr>';
+				}
+				
+				// Content
+				$order .= '<tr>';
+				foreach($item as $value)
+				{
+					// Fix Empty Value Cells
+					if ($value == '') 
+						$value = '&nbsp;';
+					
+					// Right Align Numbers
+					if( is_numeric($value) )
+						$order .= "<td align='right'>$value</td>";
+					
+					// Default Format
+					else
+						$order .= "<td>$value</td>";
+				}
+				$order .= '</tr>';				
+			}
+			$order .= '</table>';
+		}		
+		else
+		{
+			// Introducing ArrayToTextTable to render text table
+			$order = new ArrayToTextTable($cart);
+			$order->showHeaders(true);
+			$order = $order->render(true);
+		}		
+
+		
+		$fromName = get_bloginfo('name');
+
+        $headers = "From: $fromName <$from>"                   . PHP_EOL .
+                   "To: $to"                                   . PHP_EOL .
+                   "BCC: $from"                                . PHP_EOL .
+                   "MIME-Version 1.0"                          . PHP_EOL .
+                   "Content-type: text/$isHtml; charset=utf-8" . PHP_EOL .
+		           "X-Mailer: PHP-" . phpversion()             . PHP_EOL ;
+
+		$upload_dir = wp_upload_dir();		
+		$template = $upload_dir['basedir'] . "/catablog/templates/order.htm";
 		
 		if( is_file($template) )
 			$message = file_get_contents($template);
@@ -293,13 +355,13 @@ class CataBlogCart
         $message = str_replace('%ADDRESS%', $post_vars['address'],   $message );
         $message = str_replace('%NOTE%',    $post_vars['note'],      $message );
         $message = str_replace('%ORDER%',   $order,                  $message );
-                
+
         $ok = wp_mail( $to, $subject, $message, $headers );
 
 		$_SESSION['cart']['submit'] = $ok;
-        	
+
 		return $ok;
-        
+
     }
 
     public static function emptyCart()
@@ -334,7 +396,9 @@ class CataBlogCart
 		register_setting('catablogcart-group', 'catablogcart_pageid'       );
 		register_setting('catablogcart-group', 'catablogcart_emailfrom'    );
 		register_setting('catablogcart-group', 'catablogcart_emailsubject' );
-		register_setting('catablogcart-group', 'catablogcart_emailtemplate');		
+		register_setting('catablogcart-group', 'catablogcart_emailtemplate');
+		register_setting('catablogcart-group', 'catablogcart_emailhtml'    );
+		register_setting('catablogcart-group', 'catablogcart_hideprices'   );
 	}
     
     public static function admin_settings_page()
@@ -373,6 +437,22 @@ class CataBlogCart
 				</td>
 				</tr>
 				
+				<tr valign="top">
+				<th scope="row"><?php _e('Send HTML E-mail','catablogcart'); ?></th>
+				<td>
+				    <input type="checkbox" name="catablogcart_emailhtml" value="yes" <?php echo get_option('catablogcart_emailhtml','') != '' ? 'checked="checked"' : ''; ?>" />
+				    <small><?php _e('If checked the email will be sent as HTML, otherwise it will be plain text','catablogcart'); ?></small>
+				</td>
+				</tr>
+
+				<tr valign="top">
+				<th scope="row"><?php _e('Hide Prices','catablogcart'); ?></th>
+				<td>
+				    <input type="checkbox" name="catablogcart_hideprices" value="yes" <?php echo get_option('catablogcart_hideprices','') != '' ? 'checked="checked"' : ''; ?>" />
+				    <small><?php _e('Enable this option to hide prices and totals','catablogcart'); ?></small>
+				</td>
+				</tr>
+							
 				<tr>
 				  <td colspan="2" align="right" style="text-align: right;">
 					<small>If you enjoy this plugin please donate!</small>

@@ -31,7 +31,7 @@ if ( !function_exists( 'add_action' ) )
 require('CataBlogOrdering.class.php');
 require('ArrayToTextTable.class.php');
 
-load_plugin_textdomain('catablogcart', false, '/catablogcart/lang');
+load_plugin_textdomain('catablogcart', false, dirname( plugin_basename( __FILE__ ) ) . '/lang');
 
 add_action('admin_menu', array('CataBlogCart', 'admin_settings_menu') );
 
