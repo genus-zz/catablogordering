@@ -3,11 +3,11 @@
 Plugin Name: Catablog Ordering
 Plugin URI: https://github.com/genus/catablogordering
 Description: Add Catablog Plugin Support for Making Purchase Orders
-Version: 0.1.3
+Version: 0.2
 Author: diego2k
 Author URI: http://www.estudiogenus.com/
 
-Copyright 2012  Diego Coppari (email: diego2k@gmail.com)
+Copyright 2012-2014 Diego Coppari (email: diego2k@gmail.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

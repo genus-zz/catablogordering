@@ -2,8 +2,8 @@
 Contributors: diego2k
 Tags: plugin, admin, product, sales, orders, purchase, store, cart, ecommerce, Spanish
 Requires at least: 3.5
-Tested up to: 3.5
-Stable tag: 0.1.4
+Tested up to: 3.9
+Stable tag: 0.2
 
 == Description ==
 
@@ -33,7 +33,49 @@ This is a work in progress so feel free to contact me and ask me for updates.
 
 	  <input type='text' name='item_weight'>
 
+5) List of Hooks and Filters
 
+	With this version i added some new filters and action hooks:
+	
+	ACTION:
+		* catablogcart_before_event($command)
+		This action is performed before add/remove/empty cart functions are executed, the command indicates wich one will be executed.
+			
+		* catablogcart_after_event($command, $redirect)
+		Same as before but it raised after process and the redirect var indicates if there will be a redirect to cart page.
+
+		* catablogcart_before_form_fields		
+		This action is executed before the html order form tag is rendered so it's a good place to add some input tags that you want to be submitted
+	
+		* catablogcart_after_form_fields
+		This action is executed after the html order form tag is rendered so it's a good place to add some input tags that you want to be submitted
+	
+	FILTERS:
+		* catablogcart_redirect
+		Indicates if there will be a redirect after a add/remove/empty command is executed.
+		
+		* catablogcart_redirect_id
+		Indicates the page_id for wp_redirect function.
+	
+		* catablogcart_add_item($item_info)
+	
+		Email Related Filters:
+		
+			* catablogcart_email_order_to($to)
+		
+			* catablogcart_email_order_from($from)
+		
+			* catablogcart_email_order_fromname($fromname)
+		
+			* catablogcart_email_order_subject($subject)
+		
+			* catablogcart_email_order_items($items)
+		
+			* catablogcart_email_order_table($order_table)
+
+			* catablogcart_email_body($email_body, $post_vars)
+			
+		
 == Frequently Asked Questions == 
 
 = Hey dude, where is my CART? =
@@ -50,6 +92,11 @@ You can find me on facebook/diego2k
 
 = This is cool how can i help? =
 Make donation, make translations, improve it, spread the word!
+
+== 0.2 ==
+Some improvements on how the code works
+Added some hooks and filters
+Removed the annoying 1 
 
 == 0.1.4 ==
 Added Option to Hide Prices and Totals
